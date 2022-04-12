@@ -1,0 +1,14 @@
+#!/bin/bash
+
+##Dependencies is only  "fzf"
+## it's only for me so don't worry!!!
+echo $*
+
+if [ -z "$*" ]
+then
+        mpv -fs --speed=1.75 "/home/sk/Dream/Av-nahw/$(ls /home/sk/Dream/Av-nahw | fzf)"
+else
+
+        pat=$(ls /home/sk/Dream/Av-nahw | fzf -q "$*" )
+        mpv -fs --speed=1.75 "/home/sk/Dream/Av-nahw/$pat"
+fi

@@ -1,0 +1,15 @@
+#! /bin/sh
+
+##Dependencies is only  "fzf"
+## it's only for me so don't worry!!!
+
+
+if [ -z "$*" ]
+then
+	mpv "/home/sk/Dream/Balaghah/$(ls /home/sk/Dream/Balaghah | fzf)"
+else
+        pat=$(ls /home/sk/Dream/Balaghah | fzf -q "$*" )
+        mpv "/home/sk/Dream/Balaghah/$pat"
+fi
+
+

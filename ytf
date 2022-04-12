@@ -1,0 +1,11 @@
+#! /bin/sh
+
+# For my future self 
+# This takes two arguments
+#			  1.resulation
+#			  2.the full path to txt file
+
+## yt-dlp is the dependency hehe
+
+
+while read line ; do yt-dlp -f $1 "$line" ; done < $2
