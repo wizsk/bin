@@ -5,8 +5,12 @@
 # 2. mpv
 
 link="$(ytfzf -I L $* )"
-echo ""
-echo "  -------- wait man mpv takes time to load 😅 ----------"
-echo ""
+
+echo "-------------------------------------------"
+echo " \"$*\"  is loading w8"
+echo "  Hope yout are wathcing something good 😅"
+echo "-------------------------------------------"
+
+
 mpv -fs $link
 
