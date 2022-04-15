@@ -1,0 +1,6 @@
+#! /bin/sh
+
+#ghp stands for githum push lol 🥴
+#this uses githib tocken to push to githum hehe 😬
+git push https://$(cat $HOME/Documents/Personal/github_tocken.txt )@github.com/skhrr/$1
+echo "Pushing to $1 😴"
