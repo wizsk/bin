@@ -4,5 +4,5 @@
 #this uses githib tocken to push to githum hehe 😬
 git push https://$(cat $HOME/Documents/Personal/github_tocken.txt )@github.com/skhrr/$1
 echo
-echo "  ---- Pushing to \"$1\" is done😴 ----  "
+echo "  ---- Pushing to \"$1\" done😴 ----  "
 echo
