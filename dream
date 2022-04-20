@@ -2,7 +2,6 @@
 
 ##Dependencies is only  "fzf"
 ## it's only for me so don't worry!!!
-echo $*
 
 if [ -z "$*" ]
 then
