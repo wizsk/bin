@@ -8,7 +8,7 @@ link="$(ytfzf -I L $* )"
 
 echo "-------------------------------------------"
 echo " \"$*\"  is loading w8"
-echo "  Hope yout are wathcing something good 😅"
+echo "  Hope you are wathcing something good 😅"
 echo "-------------------------------------------"
 
 
