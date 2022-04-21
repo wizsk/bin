@@ -1,6 +1,6 @@
 #! /bin/sh
 
-s_t=$( echo "$*" |  sed "s/[[:space:]]/+/g" )
+s_t=$( sed "s/[[:space:]]/+/g" "$*" )
 
 query="https://vid.puffyan.us/search?q=$s_t"
 
