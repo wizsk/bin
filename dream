@@ -3,11 +3,9 @@
 ##Dependencies is only  "fzf"
 ## it's only for me so don't worry!!!
 
-if [ -z "$*" ]
-then
-        mpv -fs --speed=1.75 "/home/sk/Dream/Av-nahw/$(ls /home/sk/Dream/Av-nahw | fzf)"
-else
 
-        pat=$(ls /home/sk/Dream/Av-nahw | fzf -q "$*" )
-        mpv -fs --speed=1.75 "/home/sk/Dream/Av-nahw/$pat"
-fi
+path="/home/sk/Dream/Av-nahw"
+vid_player="mpv -fs --speed=1.75 /home/sk/Dream/Av-nahw/"
+
+
+[ -z "$*" ] && $vid_player"$( ls $path | fzf )" || $vid_player"$( ls $path | fzf -q "$*" )"

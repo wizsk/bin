@@ -2,7 +2,7 @@
 
 #ghp stands for github push lol 🥴
 #this uses githib tocken to push to githum hehe 😬
-git push https://$(cat $HOME/Documents/Personal/github_tocken.txt )@github.com/skhrr/$1
+git push https://$(cat $HOME/Documents/Personal/github_tocken.txt )@github.com/skbhr/$1
 echo
 echo "  ---- Pushing to \"$1\" done😴 ----  "
 echo

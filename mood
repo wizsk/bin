@@ -1,0 +1,9 @@
+#! /bin/sh
+
+path="$HOME/Documents/Personal/mood.txt"
+
+[ "$1" == "-m" ] && cat "$path" && exit
+
+[ -z "$*" ] && echo "Ki hoise re?" &&  read mode || mode="$*"
+
+echo "[$(date | cut -d" " -f 2,3,4,5 )] => $mode" >> "$path" 
