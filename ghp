@@ -2,6 +2,13 @@
 
 #ghp stands for github push lol 🥴
 #this uses githib tocken to push to githum hehe 😬
+
+red='\033[0;31m'
+no_col='\033[0m'
+
+
+[ -z "$1" ] && printf "\n    -- ${red}Hur mia koi push kormu${no_col}😑 --     \n\n" && exit
+
 git push https://$(cat $HOME/Documents/Personal/github_tocken.txt )@github.com/skbhr/$1
 echo
 echo "  ---- Pushing to \"$1\" done😴 ----  "

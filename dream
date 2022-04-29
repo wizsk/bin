@@ -9,3 +9,4 @@ vid_player="mpv -fs --speed=1.75 /home/sk/Dream/Av-nahw/"
 
 
 [ -z "$*" ] && $vid_player"$( ls $path | fzf )" || $vid_player"$( ls $path | fzf -q "$*" )"
+
