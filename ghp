@@ -1,7 +1,7 @@
 #! /bin/sh
 
 #ghp stands for github push lol 🥴
-#this uses githib tocken to push to githum hehe 😬
+#this uses githib tocken to push to github hehe 😬
 
 red='\033[0;31m'
 no_col='\033[0m'

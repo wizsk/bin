@@ -1,0 +1,19 @@
+#!/bin/sh
+
+
+case $1 in 
+	-S)
+		light -S $2
+		notify-send -t 500 "$( light -G | cut -d '.' -f 1 )%" "brightness"
+		;;
+	-U)
+		light -U $2
+		notify-send -t 200 "$( light -G | cut -d '.' -f 1 )" "brightness"
+		;;
+	-A)
+		light -A $2
+		notify-send -t 200 "$( light -G | cut -d '.' -f 1 )" "brightness"
+		;;
+
+
+esac
