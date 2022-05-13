@@ -11,4 +11,4 @@ echo " \"$*\"  is loading w8"
 echo "  Hope you are wathcing something good 😅"
 echo "-----------------------------------------------"
 
-mpv -fs "https://youtube.com/$vid_id"
+mpv "https://youtube.com/$vid_id"

@@ -12,5 +12,5 @@ echo "  Hope you are wathcing something good 😅"
 echo "-------------------------------------------"
 
 
-mpv -fs $link
+mpv $link
 

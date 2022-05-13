@@ -1,2 +1,5 @@
 #! /bin/sh
- maim --select | xclip -selection clipboard -t image/png
+
+[ "$1" = "f" ] && maim | xclip -selection clipboard -t image/png && notify-send -t 550 -u low "SS taken" "&& copied to clipboard" && exit
+
+[ "$1" = "s" ] && maim --select | xclip -selection clipboard -t image/png && notify-send -t 550 -u low "SS taken" "&& copied to clipboard" && exit
