@@ -2,9 +2,17 @@
 
 dp="$HOME/.config"
 gdp="$HOME/mdwm/dotfiles/.config"
+dotf="$HOME/mdwm/dotfiles"
 
 
-cp $dp/sxhkd/sxhkdrc $gdp/sxhkd/sxhkdrc && echo -e "--------------\n sxhkd copied \n--------------"
+cp $HOME/.zprofile $dotf/.zprofile && echo -e "--------------\n .zprofile copied \n--------------"
+cp $HOME/.zshrc $dotf/.zshrc && echo -e " .zshrc copied \n--------------"
+cp $HOME/.xinitrc $dotf/.xinitrc && echo -e " .xinitrc copied \n--------------"
+cp $HOME/.Xmodmap $dotf/.Xmodmap && echo -e " .Xmodmap copied \n--------------"
+# cp $HOME/.Xmodmap $dotf/.Xmodmap && echo -e " .Xmodmap copied \n--------------"
+
+
+cp $dp/sxhkd/sxhkdrc $gdp/sxhkd/sxhkdrc && echo -e " sxhkd copied \n--------------"
 cp $dp/dunst/dunstrc $gdp/dunst/dunstrc && echo -e " dunstrc copied \n----------------------"
 cp $dp/nvim/init.vim $gdp/nvim/init.vim && echo -e " nvim-init.vim copied \n----------------------"
 cp $dp/picom/picom.conf $gdp/picom/picom.conf && echo -e " picom.conf copied \n--------------"
