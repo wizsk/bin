@@ -12,18 +12,27 @@ curl -s "https://api.aladhan.com/v1/calendarByCity?city=tangail&country=banglade
 tim=$( head -1 $js )
 if [ -z "$tim" ]
 then	
-	echo -e "\n    Showing the \033[0;31marchived\033[0m version\n\t──────────────────" 
-	awk '{ printf"\t \033[1;35m%s %s \033[1;31m%s\033[0m\n\t──────────────────\n", $1, $2, $3 }' $tm
+	echo -e "\n    Showing the \033[0;31marchived\033[0m version\n\t──────────────────────" 
+	awk '{ printf"\t   %s \033[1;35m%s %s \033[1;31m%s\033[0m\n\t──────────────────────\n", $1, $2, $3,$4 }' $tm
 	echo
 	exit 0
 fi
 
 
 ## if internet is avialavle then process and show and save the time
-jq "." $js | grep -m 7 "Fajr\|Sunrise\|Dhuhr\|Asr\|Sunset\|Maghrib\|Isha" | sed "s/\"//g ; s/(+06),//g ; s/\s*// ; s/:/ -/" > $tm
+jq "." $js |
+	grep -m 7 "Fajr\|Sunrise\|Dhuhr\|Asr\|Sunset\|Maghrib\|Isha" | 
+	sed "s/\"//g ; s/(+06),//g ; s/\s*// ; s/:/ -/
+	s/Fajr/🌇 Fajr/
+	s/Sunrise/🌅 Sunrise/
+	s/Dhuhr/☀️  Dhuhr/
+	s/Asr/🌳 Asr/
+	s/Sunset/🌇 Sunset/
+	s/Maghrib/🌥️ Mahgrib/
+	s/Isha/🌃 Isha/" > $tm
 
 
 
-echo -e "\n    Showing the \033[0;31monline\033[0m version\n\t──────────────────" 
-awk '{ printf"\t \033[1;35m%s %s \033[1;31m%s\033[0m\n\t──────────────────\n", $1, $2, $3 }' $tm
+echo -e "\n    Showing the \033[0;31monline\033[0m version\n\t──────────────────────" 
+awk '{ printf"\t   %s \033[1;35m%s %s \033[1;31m%s\033[0m\n\t──────────────────────\n", $1, $2, $3, $4 }' $tm
 echo
