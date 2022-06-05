@@ -1,0 +1,7 @@
+#! /bin/sh
+
+time=$( date +"%H" )
+
+[ "$time" -ge "19" ] && backl="10" || backl="60"
+
+light -S $backl && sleep 5 && notify-send "Backlight set to $backl" "if do something good"
