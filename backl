@@ -1,7 +1,10 @@
 #!/bin/sh
 
+path="$HOME/.cache/light_set"
+
 function send_notification() {
         light=$(light -G)
+		echo "$light" > $path
         dunstify -a "changelight" -u low -r "9993" -h int:value:"$light" -i "light-$1" "Brightness: ${light}%" -t 2000
 }
 
