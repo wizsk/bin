@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# Regular Colors
+clOff='\033[0m'          # Text Reset
+red='\033[1;31m'         # Red
+
+
+name="$2"
+path="$PWD/$1"
+cpath="$HOME/.cache/class-links"
+indx=1
+tempLinks="$PWD/bear-links"
+finalLinks="$PWD/$name-links"
+
+sed "s/<\//\n/g ; s/\"/\n/g" $path | grep "facebook.com" > $tempLinks
+
+
+while read line
+	do
+		echo "$line;$indx-$name.mp4" >> $finalLinks
+		echo "$indx-$name"
+		indx=$((indx + 1))
+	done < $tempLinks
+
+rm $tempLinks
+
+while read link
+	do	
+		echo -e "\n\t${red}downloading $(echo $link | cut -d ";" -f 2) ${clOff} \n"
+		yt-dlp --cookies-from-browser brave $(echo $link | cut -d ";" -f 1) -o "$(echo $link | cut -d ";" -f 2)"
+	done < $finalLinks
+
+printf "do u wanna keep the links [y/N]? "
+read promt
+
+[ -z "$promt" ] && rm $finalLinks && echo " Deleted " && exit 0
+[ "$promt" == "n" ] && rm $finalLInks && exit 0
+
