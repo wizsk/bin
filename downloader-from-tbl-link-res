@@ -11,6 +11,8 @@ cpath="$HOME/.cache/class-links"
 indx=1
 tempLinks="$PWD/bear-links${sec}"
 finalLinks="$PWD/$name-links${sec}"
+ytc="yt-dlp --cookies-from-browser brave"
+
 
 sed "s/<\//\n/g ; s/\"/\n/g" $path | grep "facebook.com" > $tempLinks
 
@@ -23,7 +25,12 @@ while read line
 
 rm $tempLinks
 
-[ "$3" == "-L" ] && echo -e "------------------------------------------------\nLink made at \"$finalLinks\"\n------------------------------------------------" && exit 0
+[ "$3" == "-L" ] && echo -e "-----------\nLink made at \"$finalLinks\"\n---------------" && exit 0
+
+
+
+
+# $ytc -F "$vlink" | grep "mp4 640x360\|m4a audio only" | cut -d " " -f 1
 
 
 while read link
@@ -32,15 +39,17 @@ while read link
 		echo -e "${red}downloading $(echo $link | cut -d ";" -f 2) ${clOff} "
 		echo -e "-------------------------------------------------------------------\n"
 
-		yt-dlp --cookies-from-browser brave $(echo $link | cut -d ";" -f 1) -o "$(echo $link | cut -d ";" -f 2)"
+		resulatin="$($ytc -F "$(echo $link | cut -d ";" -f 1)" | sed -n '1! G;$ p;h' | grep "mp4 640x360\|m4a audio only" | cut -d " " -f 1 | sed -z 's/\n/+/g ; s/,$/\n/ ; s/+$//g')"
+
+		$ytc -f "$resulatin" $(echo $link | cut -d ";" -f 1) -o "$(echo $link | cut -d ";" -f 2)"
 
 		echo
 			
-		for i in {120..1}
-			do
-				echo -ne "[FB Bot]:Downloading next vid in ${red}${i}sec${clOff}\r"
-				sleep 1
-			done
+		# for i in {120..1}
+		# 	do
+		# 		echo -ne "[FB Bot]:Downloading next vid in ${red}${i}sec${clOff}\r"
+		# 		sleep 1
+		# 	done
 
 	done < $finalLinks
 
