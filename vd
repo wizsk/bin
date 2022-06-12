@@ -1,30 +1,34 @@
 #! /bin/sh
 
+#colors
+cOff='\033[0m'
+bRed='\033[1;31m'
+
+
 link="$1"
-[ -z "$link" ] && echo -n "give a yt or fb link: " && read link
-[ -z "$link" ] && echo "No link provided self-destructing" && exit 1
+[ -z "$link" ] && echo -en "give a yt or fb ${bRed}link${cOff}: " && read link
+[ -z "$link" ] && echo -e "No link provided ${bRed}self-destructing${cOff}" && exit 1
 
 name=$2
 
-# [[ ${link} =~ https://(www\.)?youtu.* ]] && echo "YT link" && ytl="yt-dlp $link" || echo "fb link I guess" && ytl="yt-dlp --cookies-from-browser brave $link" && echo hiiiii && exit
 
 if [[ ${link} =~ https://(www\.)?youtu.* ]]
 then
-	echo "YT link"
+	echo -e "${bRed}YT link${cOff}"
 	ytl="yt-dlp $link"
 else
-	echo "fb link I guess"
+	echo -e "${bRed}fb link I guess${cOff}"
 	ytl="yt-dlp --cookies-from-browser brave $link"
 fi
 
 
 $ytl  -F
 
-echo -n "Give the resulution pls: " && read res
-[ -z $res ] && echo "going back to default Resutlation" || f_res="-f $res"
+echo -ne "Give the ${bRed}resulution${cOff}: " && read res
+[ -z $res ] && echo -e "going back to ${bRed}default Resutlation${cOff}" || f_res="-f $res"
 
-[ -z $name ] && echo -n "Name of the vid: " && read name
-[ -z $name ] && echo "going back to default Name" || o_name="-o \"$name\"" 
+[ -z $name ] && echo -en "${bRed}Name${cOff} of the vid: " && read name
+[ -z $name ] && echo -e "going back to ${bRed}default Name${cOff}" || o_name="-o \"$name\"" 
 
 $ytl $f_res $o_name
 
