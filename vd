@@ -1,0 +1,31 @@
+#! /bin/sh
+
+link="$1"
+[ -z "$link" ] && echo -n "give a yt or fb link: " && read link
+[ -z "$link" ] && echo "No link provided self-destructing" && exit 1
+
+name=$2
+
+# [[ ${link} =~ https://(www\.)?youtu.* ]] && echo "YT link" && ytl="yt-dlp $link" || echo "fb link I guess" && ytl="yt-dlp --cookies-from-browser brave $link" && echo hiiiii && exit
+
+if [[ ${link} =~ https://(www\.)?youtu.* ]]
+then
+	echo "YT link"
+	ytl="yt-dlp $link"
+else
+	echo "fb link I guess"
+	ytl="yt-dlp --cookies-from-browser brave $link"
+fi
+
+
+$ytl  -F
+
+echo -n "Give the resulution pls: "
+read res
+
+[ -z $name ] && echo -n "Name of the vid: " && read name
+
+[ -z $name ] && echo "going back to default name" || o_name="-o \"$name\"" 
+
+$ytl -f $res -o $o_name
+
