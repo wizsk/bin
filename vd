@@ -20,12 +20,11 @@ fi
 
 $ytl  -F
 
-echo -n "Give the resulution pls: "
-read res
+echo -n "Give the resulution pls: " && read res
+[ -z $res ] && echo "going back to default Resutlation" || f_res="-f $res"
 
 [ -z $name ] && echo -n "Name of the vid: " && read name
+[ -z $name ] && echo "going back to default Name" || o_name="-o \"$name\"" 
 
-[ -z $name ] && echo "going back to default name" || o_name="-o \"$name\"" 
-
-$ytl -f $res -o $o_name
+$ytl $f_res $o_name
 
