@@ -1,6 +1,6 @@
 #! /bin/sh
 
-path="$HOME/Documents/Personal/mood.txt"
+path="$HOME/dox/Personal/mood.txt"
 
 [ "$1" == "-m" ] && cat "$path" && exit
 

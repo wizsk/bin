@@ -1,13 +1,35 @@
 #! /bin/sh
 
+# colors
+colR='\033[0m'		#color reset
+yollow='\033[1;33m'
+
+
 path="$HOME/.cache/stime"
+location="$path/location"
 js="$path/js"
 tmt="$path/tmt"
 tm="$path/tm"
+
+
 [ ! -e "$path" ] && mkdir $path && echo -e " New file created \n"
 
+if [ ! -e "$location" ] || [ "$1" == "-c" ]
+	then
+		[ ! -e "$location" ] && echo "AssalamuAlaikum friend. \nNo locatin imfo found This is the first time you are running this script \nPls give the name of your city and country \nbtw it's stored locally no worris" 
 
-curl -s "https://api.aladhan.com/v1/calendarByCity?city=tangail&country=bangladesh&method=1"> $js
+		echo -n "Whats the name of your city? : " && read city
+		echo -n "Whats the name of your country? : " && read country
+		
+		echo -e "${yollow}[Tip]:${colR} if the script doesnt work then you should cat \"$locatin\" path and cheak the names"
+		echo -e "if its wrong you can edit the file or use ${yollow}salah -c${colR} to change it"
+
+		echo "$city;$country" | tr '[:upper:]' '[:lower:]' > $location
+		
+fi
+		
+
+curl -s "https://api.aladhan.com/v1/calendarByCity?city=$(cat $location | cut -d ";" -f 2)&country=$(cat $location | cut -d ";" -f 2)&method=1"> $js
 
 ## If there is no net then show the archived vertion "cached version"
 tim=$( head -1 $js )
