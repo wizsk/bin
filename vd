@@ -3,15 +3,15 @@
 #colors
 cOff='\033[0m'
 bRed='\033[1;31m'
+yollow='\033[0;33m'
 
-
+# tacking 1no arg as the link
 link="$1"
 [ -z "$link" ] && echo -en "give a yt or fb ${bRed}link${cOff}: " && read link
 [ -z "$link" ] && echo -e "No link provided ${bRed}self-destructing${cOff}" && exit 1
 
-name=$2
 
-
+# Identifying the link 
 if [[ ${link} =~ https://(www\.)?youtu.* ]]
 then
 	echo -e "${bRed}YT link${cOff}"
@@ -21,14 +21,20 @@ else
 	ytl="yt-dlp --cookies-from-browser brave $link"
 fi
 
+# tacking 2no arg as the vid name
+name=$2
 
+# getting vid res
 $ytl  -F
 
+
+echo -e "\n${yollow}[Tip]:${cOff} leave it blank and press enter for defaul yt-dlp value"
 echo -ne "Give the ${bRed}resulution${cOff}: " && read res
 [ -z $res ] && echo -e "going back to ${bRed}default Resutlation${cOff}" || f_res="-f $res"
 
-[ -z $name ] && echo -en "${bRed}Name${cOff} of the vid: " && read name
-[ -z $name ] && echo -e "going back to ${bRed}default Name${cOff}" || o_name="-o \"$name\"" 
+[ -z $name ] && echo -en "${bRed}Name${cOff} of the vid (leave blank for df): " && read name
+[ -z $name ] && echo -e "going back to ${bRed}default Name${cOff}" || o_name="-o $name" 
 
+# Downloading the vid atlast
 $ytl $f_res $o_name
 
