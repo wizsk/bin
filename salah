@@ -10,7 +10,7 @@ location="$path/location"
 js="$path/js"
 tmt="$path/tmt"
 tm="$path/tm"
-
+dwmb="pkill -RTMIN+13 dwmblocks"
 
 [ ! -e "$path" ] && mkdir $path && echo -e " New file created \n"
 
@@ -67,3 +67,4 @@ while read line
 echo -e "\n       Showing the \033[1;31mONLINE\033[0m version\n\t─────────────────────────" 
 awk '{ printf"\t   %s \033[1;35m%s  \033[1;31m%s\033[0m %s\n\t─────────────────────────\n", $1, $2, $3, $4, $5 }' $tm
 echo
+$dwmb
