@@ -41,7 +41,7 @@ while read line
 
 
 
-[ $(date +"%H") -ge 1 ] && [ $(date +"%H") -le 7 ] && sed -n 1p $time && exit 0
+[ $(date +"%H" | sed "s/00/1/") -ge 1 ] && [ $(date +"%H") -le 7 ] && sed -n 1p $time && exit 0
 [ $(date +"%H") -ge 8 ] && [ $(date +"%H") -le 15 ] && sed -n 2p $time && exit 0
 [ $(date +"%H") -ge 16 ] && [ $(date +"%H") -le 17 ] && sed -n 3p $time&& exit 0
 [ $(date +"%H") -ge 18 ] && [ $(date +"%H") -le 18 ] && sed -n 4p $time && exit 0
