@@ -1,0 +1,19 @@
+#! /bin/sh
+
+notify="notify-send -u low  -t 650"
+
+
+if [ "layout:     us" = "$(setxkbmap -query | grep layout )" ]
+then
+	setxkbmap bd probhat
+	$notify "Bd Prob" "Is the layout"
+	sleep 2
+	xmodmap ~/.Xmodmap &
+
+elif [ "layout:     bd" = "$(setxkbmap -query | grep layout )" ]
+then
+	setxkbmap us
+	$notify "Us" "Is the layout"
+	sleep 2
+	xmodmap ~/.Xmodmap &
+fi
