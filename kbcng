@@ -1,10 +1,12 @@
 #! /bin/sh
 
 notify="notify-send -u low  -t 650"
+dwmb="pkill -RTMIN+11 dwmblocks"
 
 if [ "$1" = "ar" ]
 then
 	setxkbmap ar
+	$dwmb
 	$notify "Arabic" "Is the layout"
 	sleep 2
 	xmodmap ~/.Xmodmap &
@@ -17,6 +19,7 @@ kb="$(setxkbmap -query | grep layout)"
 if [ "layout:     us" = "$kb" ]
 then
 	setxkbmap bd probhat
+	$dwmb
 	$notify "Bangla Prob" "Is the layout"
 	sleep 2
 	xmodmap ~/.Xmodmap &
@@ -24,6 +27,7 @@ then
 elif [ "layout:     bd" = "$kb" ] || [ "layout:     ar" = "$kb" ]
 then
 	setxkbmap us
+	$dwmb
 	$notify "English" "Is the layout"
 	sleep 2
 	xmodmap ~/.Xmodmap &
