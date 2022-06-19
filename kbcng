@@ -2,18 +2,29 @@
 
 notify="notify-send -u low  -t 650"
 
+if [ "$1" = "ar" ]
+then
+	setxkbmap ar
+	$notify "Arabic" "Is the layout"
+	sleep 2
+	xmodmap ~/.Xmodmap &
+	exit 0
+fi
 
-if [ "layout:     us" = "$(setxkbmap -query | grep layout )" ]
+
+kb="$(setxkbmap -query | grep layout)"
+
+if [ "layout:     us" = "$kb" ]
 then
 	setxkbmap bd probhat
-	$notify "Bd Prob" "Is the layout"
+	$notify "Bangla Prob" "Is the layout"
 	sleep 2
 	xmodmap ~/.Xmodmap &
 
-elif [ "layout:     bd" = "$(setxkbmap -query | grep layout )" ]
+elif [ "layout:     bd" = "$kb" ] || [ "layout:     ar" = "$kb" ]
 then
 	setxkbmap us
-	$notify "Us" "Is the layout"
+	$notify "English" "Is the layout"
 	sleep 2
 	xmodmap ~/.Xmodmap &
 fi
