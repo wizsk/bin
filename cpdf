@@ -1,8 +1,8 @@
 #! /bin/sh
 
 dp="$HOME/.config"
-gdp="$HOME/mdwm/dotfiles/.config"
-dotf="$HOME/mdwm/dotfiles"
+gdp="$HOME/mdwm/files/.config"
+dotf="$HOME/mdwm/files"
 
 
 cp $HOME/.zprofile $dotf/.zprofile && echo -e "--------------\n .zprofile copied \n--------------"
