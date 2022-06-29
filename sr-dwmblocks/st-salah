@@ -6,9 +6,11 @@ js="$path/js"
 timee="$path/tmtDb"
 time="$path/tmDb"
 location="$path/location"
-
-
-curl -s "https://api.aladhan.com/v1/calendarByCity?city=$(cat $location | cut -d ";" -f 2)&country=$(cat $location | cut -d ";" -f 2)&method=1"> $js
+city="$(cat $location | cut -d ";" -f 1)" 
+country="$(cat $location | cut -d ";" -f 2)"
+[ -z "$city" ] && city="dhaka"
+[ -z "$country" ] && country="bangladesh"
+curl -s "https://api.aladhan.com/v1/calendarByCity?city=${city}&country=${country}&method=1"> $js
 
 ## If there is no net then show the archived vertion "cached version"
 tim=$( head -1 $js )
@@ -39,8 +41,7 @@ while read line
 		echo $name $bdTime >> $time
 	done < $timee
 
-
-
+pkill -RTMIN+13 dwmblocks
 [ $(date +"%H" | sed "s/00/1/") -ge 1 ] && [ $(date +"%H") -le 6 ] && sed -n 1p $time && exit 0
 [ $(date +"%H") -ge 7 ] && [ $(date +"%H") -le 13 ] && sed -n 2p $time && exit 0
 [ $(date +"%H") -ge 14 ] && [ $(date +"%H") -le 17 ] && sed -n 3p $time&& exit 0
