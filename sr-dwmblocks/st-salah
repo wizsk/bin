@@ -1,5 +1,6 @@
 #! /bin/sh
 
+[ -z "$(pacman -Q | grep "^jq\s\+")" ] && echo "istall jq" && exit 
 
 path="$HOME/.cache/stime"
 js="$path/js"
