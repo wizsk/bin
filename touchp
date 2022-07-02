@@ -1,0 +1,14 @@
+#! /bin/sh
+
+if [ "$1" = "d" ]
+then
+	xinput disable $(xinput | grep "SynPS/2 Synaptics TouchPad" | sed "s/\s\+/;/g" | cut -d ";" -f 6 | cut -d "=" -f 2)
+	notify-send "TouchPad Disabled" "Now do what ever you want"
+	exit 0
+
+elif [ "$1" = "e" ]
+then
+	xinput enable $(xinput | grep "SynPS/2 Synaptics TouchPad" | sed "s/\s\+/;/g" | cut -d ";" -f 6 | cut -d "=" -f 2)
+	notify-send "TouchPad Enabled" "Now do what ever you want"
+	exit 0
+fi
