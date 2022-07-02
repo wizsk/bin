@@ -4,7 +4,7 @@
 
 mkdir -p $HOME/.cache/mT
 
-[ -z "$*" ] && echo -n "Name Pls: " && read query || query="$*"
+[ -z "$*" ] && printf | dmenu -p "Name Pls: " && read query || query="$*"
 
 
 
@@ -21,6 +21,8 @@ site="$HOME/.cache/mT/mSite.txt"
 #Get name of the movie#
 #######################
 curl -s $serch | grep -o '<a href="/torrent/.*</a>' | cut -d '"' -f 2 > $names
+cat $name
+sTorr=$(cat $names |cut -d "/" -f 4 | sed "s/-/ /g" | dmenu) && exit
 sTorr=$(cat $names |cut -d "/" -f 4 | sed "s/-/ /g" | dmenu -l 7 | sed "s/[[:space:]]/-/g")
 sTorrId=$(grep $sTorr $names)
 curl -s $link$sTorrId > $site

@@ -16,7 +16,7 @@ cp $dp/sxhkd/sxhkdrc $gdp/sxhkd/sxhkdrc && echo -e " sxhkd copied \n------------
 cp $dp/dunst/dunstrc $gdp/dunst/dunstrc && echo -e " dunstrc copied \n----------------------"
 cp $dp/nvim/init.vim $gdp/nvim/init.vim && echo -e " nvim-init.vim copied \n----------------------"
 cp $dp/picom/picom.conf $gdp/picom/picom.conf && echo -e " picom.conf copied \n--------------"
-cp -r $dp/alacritty $gdp/alacritty && echo -e " alacritty.yml copied \n--------------"
-cp -r $dp/sxiv $gdp/sxiv && echo -e " sxiv copied \n--------------"
+cp $dp/alacritty/alacritty.yml $gdp/alacritty/alacritty.yml && echo -e " alacritty.yml copied \n--------------"
+cp "$dp/sxiv/exec/key-handler" "$gdp/sxiv/exec/key-handler" && echo -e " sxiv copied \n--------------"
 
 

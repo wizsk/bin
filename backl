@@ -2,24 +2,25 @@
 
 path="$HOME/.cache/light_set"
 
-function send_notification() {
+send_notification() {
         light=$(light -G)
-		echo "$light" > $path
         dunstify -a "changelight" -u low -r "9993" -h int:value:"$light" -i "light-$1" "Brightness: ${light}%" -t 2000
+	echo "$light" > "$path"
 }
 
 
 case $1 in 
 	-S)
-		light -S $2
-		send_notification $1
+		light -S "$2"
+		send_notification "$1"
 		;;
 	-U)
-		light -U $2
-		send_notification $1
+		light -U "$2"
+		send_notification "$1"
 		;;
 	-A)
-		light -A $2
-		send_notification $1
+		light -A "$2"
+		send_notification "$1"
 		;;
+	
 esac

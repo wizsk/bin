@@ -1,14 +1,12 @@
 #! /bin/sh
 
-s_t=$( echo "$*" | sed "s/[[:space:]]/+/g" )
+# Raper script for mpv temp
 
-query="https://vid.puffyan.us/search?q=$s_t"
-
-vid_id=$( curl -s  "$query" | grep -o "/watch?v=.*" | cut -d '"' -f 1 | head -1 )
+[ "$1" = "-t" ] && yt="ytfzf -t" || yt="ytfzf"
 
 echo "-----------------------------------------------"
 echo " \"$*\"  is loading w8"
 echo "  Hope you are wathcing something good 😅"
 echo "-----------------------------------------------"
-
-mpv "https://youtube.com/$vid_id"
+link=$( $yt -I -L $* )
+mpv "$link"
