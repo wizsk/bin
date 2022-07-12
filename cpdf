@@ -18,5 +18,5 @@ cp $dp/nvim/init.vim $gdp/nvim/init.vim && echo -e " nvim-init.vim copied \n----
 cp $dp/picom/picom.conf $gdp/picom/picom.conf && echo -e " picom.conf copied \n--------------"
 cp $dp/alacritty/alacritty.yml $gdp/alacritty/alacritty.yml && echo -e " alacritty.yml copied \n--------------"
 cp "$dp/sxiv/exec/key-handler" "$gdp/sxiv/exec/key-handler" && echo -e " sxiv copied \n--------------"
-
+cp $dp/lf/??* $gdp/lf/. && echo -e " lf copied \n----------------------"
 

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+link="$HOME/Ar/Dream/Av-nahw"
+
+[ -z "$1" ] && f="fzf" || f="fzf -q "$*""
+
+class="$( ls $link | $f )"
+[ -z "$class" ] && exit
+
+mpv --speed=2 "$link/$class"

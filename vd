@@ -18,7 +18,8 @@ then
 	ytl="yt-dlp $link"
 else
 	echo -e "${bRed}fb link I guess${cOff}"
-	ytl="yt-dlp --cookies-from-browser brave $link"
+	[ -z "$BROWSER" ] && printf "Browrser name" && read -r $browser || browser="$BROWSER"
+	ytl="yt-dlp --cookies-from-browser $browser $link"
 fi
 
 # tacking 2no arg as the vid name

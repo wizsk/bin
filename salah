@@ -29,7 +29,7 @@ if [ ! -e "$location" ] || [ "$1" = "-c" ]
 fi
 		
 
-curl -s "https://api.aladhan.com/v1/calendarByCity?city=$(cut -d ";" -f 2 < "$location")&country=$(cut -d ";" -f 2 < "$location" )&method=1"> "$js"
+curl -s "https://api.aladhan.com/v1/calendarByCity?city=$(cut -d ";" -f 1 < "$location")&country=$(cut -d ";" -f 2 < "$location" )&method=1"> "$js"
 
 ## If there is no net then show the archived vertion "cached version"
 tim=$( head -1 < "$js" )
