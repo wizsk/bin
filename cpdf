@@ -1,22 +1,23 @@
 #! /bin/sh
 
 dp="$HOME/.config"
-gdp="$HOME/mdwm/files/.config"
-dotf="$HOME/mdwm/files"
+gdp="$HOME/.local/repos/files/.config"
+dotf="$HOME/.local/repos/files"
 
 
-cp $HOME/.zprofile $dotf/.zprofile && echo -e "--------------\n .zprofile copied \n--------------"
-cp $HOME/.zshrc $dotf/.zshrc && echo -e " .zshrc copied \n--------------"
-cp $HOME/.xinitrc $dotf/.xinitrc && echo -e " .xinitrc copied \n--------------"
-cp $HOME/.Xmodmap $dotf/.Xmodmap && echo -e " .Xmodmap copied \n--------------"
-# cp $HOME/.Xmodmap $dotf/.Xmodmap && echo -e " .Xmodmap copied \n--------------"
+cp $HOME/.zprofile $dotf/.zprofile && printf ".zp cpiedd"
+cp $HOME/.zshrc $dotf/.zshrc && printf " .zshrc copied \n--------------"
+cp $HOME/.xinitrc $dotf/.xinitrc && printf " .xinitrc copied \n--------------"
+cp $HOME/.Xmodmap $dotf/.Xmodmap && printf " .Xmodmap copied \n--------------"
+# cp $HOME/.Xmodmap $dotf/.Xmodmap && printf " .Xmodmap copied \n--------------"
 
 
-cp $dp/sxhkd/sxhkdrc $gdp/sxhkd/sxhkdrc && echo -e " sxhkd copied \n--------------"
-cp $dp/dunst/dunstrc $gdp/dunst/dunstrc && echo -e " dunstrc copied \n----------------------"
-cp $dp/nvim/init.vim $gdp/nvim/init.vim && echo -e " nvim-init.vim copied \n----------------------"
-cp $dp/picom/picom.conf $gdp/picom/picom.conf && echo -e " picom.conf copied \n--------------"
-cp $dp/alacritty/alacritty.yml $gdp/alacritty/alacritty.yml && echo -e " alacritty.yml copied \n--------------"
-cp "$dp/sxiv/exec/key-handler" "$gdp/sxiv/exec/key-handler" && echo -e " sxiv copied \n--------------"
-cp $dp/lf/??* $gdp/lf/. && echo -e " lf copied \n----------------------"
+cp $dp/sxhkd/sxhkdrc $gdp/sxhkd/sxhkdrc && printf " sxhkd copied \n--------------"
+cp $dp/dunst/dunstrc $gdp/dunst/dunstrc && printf " dunstrc copied \n----------------------"
+cp $dp/nvim/init.vim $gdp/nvim/init.vim && printf " nvim-init.vim copied \n----------------------"
+cp $dp/picom/picom.conf $gdp/picom/picom.conf && printf " picom.conf copied \n--------------"
+cp $dp/alacritty/alacritty.yml $gdp/alacritty/alacritty.yml && printf " alacritty.yml copied \n--------------"
+cp "$dp/sxiv/exec/key-handler" "$gdp/sxiv/exec/key-handler" && printf " sxiv copied \n--------------"
+cp $dp/lf/??* $gdp/lf/. && printf " lf copied \n----------------------"
+cp $dp/i3/??* $gdp/i3/. && printf " i3 copied \n----------------------"
 

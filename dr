@@ -1,6 +1,6 @@
 #!/bin/sh
 
-link="$HOME/Ar/Dream/Av-nahw"
+link="${HOME}/Arabic/Av-nahw"
 
 [ -z "$1" ] && f="fzf" || f="fzf -q "$*""
 

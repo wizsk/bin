@@ -5,8 +5,10 @@ cOff='\033[0m'
 bRed='\033[1;31m'
 yollow='\033[0;33m'
 
-# tacking 1no arg as the link
 link="$1"
+
+[ "$1" = "f" ] && link="$(ytfzf -I L "$2")"
+# tacking 1no arg as the link
 [ -z "$link" ] && echo -en "give a yt or fb ${bRed}link${cOff}: " && read -r link
 [ -z "$link" ] && echo -e "No link provided ${bRed}self-destructing${cOff}" && exit 1
 
