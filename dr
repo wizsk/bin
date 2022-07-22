@@ -2,9 +2,15 @@
 
 link="${HOME}/Arabic/Av-nahw"
 
-[ -z "$1" ] && f="fzf" || f="fzf -q "$*""
+if [ "$1" = "-d" ]
+then
+	class="$( ls $link | dmenu -p "Calss :" -l 8 -i )"
 
-class="$( ls $link | $f )"
-[ -z "$class" ] && exit
+else
+	[ -z "$1" ] && f="fzf" || f="fzf -q "$*""
+	class="$( ls $link | $f )"
+fi
 
-mpv --speed=2 "$link/$class"
+[ -n "$class" ] && mpv --speed=2 "$link/$class"
+
+exit

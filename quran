@@ -1,0 +1,103 @@
+#! /bin/sh
+mLink="${HOME}/.config/quran"
+cq="${mLink}/Dr-Mustafa-Khattab_the-Clear-Quran"
+cName="${cq}/name"
+termL="${mLink}/term"
+term="$TERMINAL"
+
+args="$*"
+
+[ -z "$args" ] && printf "Which surah do you wanna read?: " && read -r args
+
+version() {
+	VERSION="0.7"
+	echo "version $VERSION"
+}
+
+open_surah() {
+	less -C "$cq/$1-no-surah.txt"
+}
+
+# dmenu
+__dmenu() {
+	if [ -n "$term" ]
+	then
+
+		surah="$(ls "${cName}" | dmenu -p "Surah : " -l 8)"
+		$term -e less -C "${cName}/${surah}"
+	
+	elif [ -e "$termL" ]
+	then
+		term="$(cat "$termL")"
+		surah="$(ls "${cName}" | dmenu -p "Surah : " -l 8)"
+		$term -e less -C "${cName}/${surah}"
+
+	elif [ -z "$term" ] && [ ! -e "$terml" ]
+	then
+		ter="$(printf "" | dmenu -p "Whats your termnal emulators name?:(give the surah no) ")"
+		echo "$ter" > "$termL"
+	else
+		term="$TERMINAL"	
+	fi
+}
+
+# fzf search
+__fzf() {
+	if [ -z "$1" ]
+	then
+		fzfName="$( ls "$cName" | fzf )" 
+		[ -z "$fzfName" ] && exit
+	else
+		fzfName="$( ls "$cName" | fzf -q "$*" )"
+		[ -z "$fzfName" ] && exit
+	fi
+
+	less -C "${cName}/${fzfName}"
+}
+
+usage () {
+	printf "%s" \
+"Usage: quran [OPTIONS...] [surah no] <search-query>
+    OPTIONS:
+        -h | --help         Show this help text
+        -h | --help         Show this help text
+        -d | --dmenu        open in dmenu
+        -f | --find         directily search with fzf (find a surah)
+        --version           Get the current version
+    example:
+         $ quran 1           it will open Surah Fatiha [ if oney number is given from 1-114 ]
+         $ quran fatiha      it will open fzf and you can select the surah
+         $ quran -d          it will open dmenu
+"
+}
+
+
+
+case ${args#[-+]} in
+*[!0-9]* | '')
+	if [ "$args" = "-h" ] ||  [ "$args" = "--help" ]
+	then
+		usage
+
+	elif [ "$args" = "--version" ]
+	then
+		version
+
+	elif [ "$args" = "-d" ]
+	then
+		__dmenu
+
+	elif [ "$args" = "-f" ] || [ "$args" = "--find" ]
+	then
+		__fzf
+	else
+		__fzf "$args"
+	fi
+	;;
+
+* )
+	[ "$args" -le "114" ] && open_surah "$args" || echo "give a valid surah number or name"
+	;;
+
+esac
+

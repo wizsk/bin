@@ -1,0 +1,13 @@
+#!/bin/sh
+
+path="$HOME/Arabic/PDFs"
+
+if [ "$1" = "-d" ] ; then
+	pdf="$( ls ${path} | dmenu -p "select a PDF " -l 5  )"
+else
+	pdf="$( ls ${path} | fzf )"
+fi
+
+[ -n "$pdf" ] && zathura "${path}/${pdf}"
+
+exit
