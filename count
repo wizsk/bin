@@ -1,0 +1,117 @@
+#! /bin/sh
+
+# file
+fileName=$(date +"%y/%B_%y/day_%d_%m")		#generate a path
+path="${HOME}/.config/count/${fileName}" 	# getting full path
+
+main_count() {
+	curF=$(date +"%s_%a" | sed -E 's/^[0-9]{5}//')
+	cur="${path}/${curF}"
+
+	mkdir -p "$path"
+
+
+	start=$(date +"Start time was %I:%M %p")
+	printf "%s \n\n" "$start"
+
+	i=1
+	while true 
+	do 
+		time=$(date -d@${i} -u +%H:%M:%S)
+		printf "  Time passed: %s \t\r" "$time" ; printf "%s\n" "$time" > "$cur"
+		sleep 1 
+		i=$((i+1))
+	done
+}
+
+countdown() {
+	m=$1
+	ss=0
+	date +"started at %I:%M:%S %P"
+	while true
+	do
+		if  [ "$m" != "0" ] && [ "$ss" = "0" ]
+		then
+			m=$(( m - 1 ))
+			ss=60
+
+		elif [ "$m" = "0" ] && [ "$ss" = "0" ]
+		then
+			printf "%d minute passed\n" "$1"
+			date +"ended at %I:%M:%S %P"
+			exit 0
+		fi
+	
+		printf " Time remaining %d:%d\r" "$m" "$ss"
+
+		[ "$ss" -le "9" ] && printf "%d" "$ss" | sed 's/^0//'
+	
+		ss=$(( ss - 1 ))
+		sleep 1
+	done
+}
+
+day_total() {
+	totalS=0
+	totalM=0
+	totalH=0
+
+	for file in $(find "$path" -type f -printf "%p\n")
+	do
+		content=$(cat "$file")
+
+		sec=$(echo "$content" | cut -d ":" -f 3 | sed 's/^0//')
+		totalS=$((totalS + sec))
+		min=$(echo "$content" | cut -d ":" -f 2 | sed 's/^0//')
+		totalM=$((totalM + min))
+		hour=$(echo "$content" | cut -d ":" -f 1 | sed 's/^0//')
+		totalH=$((totalH + hour))
+	done
+
+	if [ "$totalS" -ge "60" ]
+	then
+		remainder=$(( totalS % 60 ))
+		clean=$(( totalS - remainder ))
+		moree=$(( clean / 60 ))
+		totalM=$(( totalM + moree))
+		totalS="$remainder"
+	fi
+
+	if [ "$totalM" -ge "60" ]
+	then
+		remainder=$(( totalM % 60 ))
+		clean=$(( totalM - remainder ))
+		moree=$(( clean / 60 ))
+		totalH=$(( totalH + moree))
+		totalM="$remainder"
+	fi
+
+	totalS=$( echo "$totalS" | sed -E "s/^[0-9]{1}$/0${totalS}/" )
+	totalM=$( echo "$totalM" | sed -E "s/^[0-9]{1}$/0${totalM}/" )
+	echo "Today total timer used => ${totalH}:${totalM}:${totalS}"
+}
+
+help() {
+	echo "Usage: counter [OPTIONS...]
+    OPTIONS:
+        -h | --help       Show this help text
+        -t | total        Show Total time of a day
+
+"
+}
+case "$@" in
+	t|-t|total)
+		day_total
+		;;
+	
+	h|-h|--help)
+		help
+		;;
+	
+	[0-9]*)
+		countdown $1
+		;;
+
+	*)
+		main_count
+esac
