@@ -24,13 +24,46 @@ main_count() {
 	done
 }
 
+
+main_count_continue() {
+	cur="${path}/${file}_$(date +'%a')"
+
+	latest=0
+	for file in $( ls "$path" | cut -d "_" -f 1)
+	do
+		[ "$latest" > "$file" ] && latest="$file"
+	done
+	
+	curn=$(cat "${cur}")
+
+	min=$(echo "$curn" | cut -d ":" -f 2 | sed 's/^0//')
+	secM=$((min * 60))
+	hour=$(echo "$curn" | cut -d ":" -f 1 | sed 's/^0//')
+	secH=$((hour * 3600))
+	sec=$(echo "$curn" | cut -d ":" -f 3 | sed 's/^0//')
+	totalS=$((sec + secM + secH))
+
+	i="$totalS"
+
+	start=$(date +"Start time was %I:%M %p")
+	printf "%s and the old session was %s\n\n" "$start" "$curn"
+	while true
+	do
+		time=$(date -d@${i} -u +%H:%M:%S)
+		printf "  Time passed: %s \t\r" "$time" ; printf "%s\n" "$time" > "$cur"
+		sleep 1
+		i=$((i+1))
+	done
+}
+
 countdown() {
 	m=$1
 	ss=0
 	date +"started at %I:%M:%S %P"
 	while true
 	do
-		if  [ "$m" != "0" ] && [ "$ss" = "0" ]
+
+		if  [ "$m" -ge "1" ] && [ "$ss" = "0" ]
 		then
 			m=$(( m - 1 ))
 			ss=60
@@ -42,9 +75,10 @@ countdown() {
 			exit 0
 		fi
 	
+		[ "$ss" -le "9" ] && ss=$( printf "%d" "$ss" | sed 's/^0//' )
+
 		printf " Time remaining %d:%d\r" "$m" "$ss"
 
-		[ "$ss" -le "9" ] && printf "%d" "$ss" | sed 's/^0//'
 	
 		ss=$(( ss - 1 ))
 		sleep 1
@@ -91,17 +125,25 @@ day_total() {
 	echo "Today total timer used => ${totalH}:${totalM}:${totalS}"
 }
 
+
 help() {
 	echo "Usage: counter [OPTIONS...]
     OPTIONS:
         -h | --help       Show this help text
         -t | total        Show Total time of a day
+        -c | c            Continue the previous session ( no pause just stop the program and run it again $ count -c )
 
 "
 }
+
+
 case "$@" in
 	t|-t|total)
 		day_total
+		;;
+
+	c|-c)
+		main_count_continue
 		;;
 	
 	h|-h|--help)
