@@ -70,7 +70,7 @@ countdown() {
 
 		elif [ "$m" = "0" ] && [ "$ss" = "0" ]
 		then
-			printf "%d minute passed\n" "$1"
+			printf "%d minute passed\n\n" "$1"
 			date +"ended at %I:%M:%S %P"
 			exit 0
 		fi
@@ -79,6 +79,7 @@ countdown() {
 
 		printf " %dmin:%dsec\tremaining \r" "$m" "$ss"
 		sleep 1
+		printf "\33[2K\r"
 	done
 }
 
