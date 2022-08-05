@@ -7,7 +7,7 @@ yollow='\033[0;33m'
 
 link="$1"
 
-[ "$1" = "f" ] && link="$(ytfzf -I L "$2")"
+[ "$1" = "f" ] && link=$(ytfzf -I L "$2")
 # tacking 1no arg as the link
 [ -z "$link" ] && echo -en "give a yt or fb ${bRed}link${cOff}: " && read -r link
 [ -z "$link" ] && echo -e "No link provided ${bRed}self-destructing${cOff}" && exit 1
