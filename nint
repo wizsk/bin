@@ -1,0 +1,17 @@
+#! /bin/sh
+
+x=true
+i=1
+while $x
+do
+	printf "\nTried %dx: " "${i}"
+	i=$(($i+1))
+	[ "$(( $i % 30 ))" = 0 ] && notify-send -u low "No net" "Tried ${i}x to connect"
+	# curl -s 'https://hamariweb.com/islam/tangail_prayer-timing13785.aspx' > /dev/null && break || sleep 10
+	curl -s 'google.com' > /dev/null && break || sleep 10
+
+	printf "No Luck\n"
+done
+
+echo 'Net aise'
+notify-send "Net aise" "hehe"

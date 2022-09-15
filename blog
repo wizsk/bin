@@ -1,0 +1,115 @@
+#!/bin/bash
+
+path="$HOME/.cache/blog"
+mkdir -p "$path"
+file="$(date +'%s')_$1"
+filep="${path}/${file}"
+
+
+tittle=$(date +'%a-%b-%d')
+tit="web/$tittle.html"
+
+sed '/^$/d' "$1" > "$filep"
+
+htmlBloiler="<!DOCTYPE html>
+<html lang=\"en\">
+	<head>
+    	<meta charset=\"UTF-8\">
+    	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    	<meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">
+		<link rel=\"stylesheet\" href=\"./style.css\">
+    	<title>${tittle}</title>
+	</head>
+	<body>
+"
+
+[ -z "$1" ] && echo "pls give a file name" && exit
+
+echo "$htmlBloiler" > "$tit"
+
+
+while read line
+do
+	bi="$(echo "$line" | cut -d ' ' -f 1)"
+
+	if [ "$prBi" = "=" ] && [ "$bi" != "=" ]; then
+		echo -e "\t\t</ol>" >> "$tit"
+	fi
+	if [ "$prBi" = "-" ] && [ "$bi" != "-" ]; then
+		echo -e "\t\t</ul>" >> "$tit"
+	fi
+
+
+	if [ "$bi" = "#" ]; then
+		ln="$( echo "$line" | sed "s/^#\ //")"
+		echo -e "\t\t<h1>$ln</h1>"  >> "$tit"
+	elif [ "$bi" = "##" ]; then
+		ln="$( echo "$line" | sed "s/^##\ //")"
+		echo -e "\t\t<p>$ln</p>"  >> "$tit"
+	elif [ "$bi" = "=" ]; then
+
+		if [ "$prBi" != '=' ]; then
+			echo -e "\t\t<ol>"  >> "$tit"
+		fi
+
+		ln="$( echo "$line" | sed "s/^=\ //")"
+		echo -e "\t\t\t<li>$ln</li>"  >> "$tit"
+
+	elif [ "$bi" = "-" ]; then
+
+		if [ "$prBi" != '-' ]; then
+			echo -e "\t\t<ul>"  >> "$tit"
+		fi
+
+		ln="$( echo "$line" | sed "s/^-\ //")"
+		echo -e "\t\t\t<li>$ln</li>"  >> "$tit"
+	fi
+
+
+
+	prBi="$bi"
+
+done < "$filep"
+
+
+if [ "$prBi" = '=' ]; then
+	echo -e "</ol>"  >> "$tit"
+fi
+if [ "$prBi" = '-' ]; then
+	echo -e "</ul>" >> "$tit"
+fi
+
+
+
+
+echo "	</body>
+</html>"  >> "$tit"
+
+
+## index
+echo "<li><a href=\"/${tittle}.html\">${tittle}</a></li>" >> "web/list.txt"
+
+echo "<!DOCTYPE html>
+<html lang=\"en\">
+        <head>
+        <meta charset=\"UTF-8\">
+        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">
+                <link rel=\"stylesheet\" href=\"./style.css\">
+        <title>index</title>
+        </head>
+        <body>
+			<h1> This is my blog lis</h1>
+			<ol>
+" > web/index.html
+while read line
+do
+	if [ "$line" != "$prline" ]; then
+		echo "$line" >> web/index.html
+	fi
+
+	prline="$line"
+done < web/list.txt
+
+echo "			</ol>
+		</body>" >> web/index.html

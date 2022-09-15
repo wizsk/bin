@@ -11,6 +11,6 @@ else
 	class="$( ls $link | $f )"
 fi
 
-[ -n "$class" ] && mpv --speed=2 "$link/$class"
+[ -n "$class" ] && mpv -fs --speed=2 "$link/$class"
 
 exit
