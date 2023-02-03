@@ -1,25 +1,22 @@
 #!/bin/sh
 
-path="$HOME/.cache/light_set"
-
 send_notification() {
-        light=$(light -G)
-        dunstify -a "changelight" -u low -r "9993" -h int:value:"$light" -i "light-$1" "Brightness: ${light}%" -t 2000
-	echo "$light" > "$path"
+	light=$(brightnessctl | grep 'Current brightness:' | cut -d '(' -f 2 | cut -d '%' -f 1)
+	dunstify -a "changelight" -u low -r "9993" -h int:value:"$light" -i "light-$1" "Brightness: ${light}%" -t 2000
 }
 
 
 case $1 in 
-	-S)
-		light -S "$2"
+	s)
+		brightnessctl set "$2"%
 		send_notification "$1"
 		;;
-	-U)
-		light -U "$2"
+	i)
+		brightnessctl set 5%+	
 		send_notification "$1"
 		;;
-	-A)
-		light -A "$2"
+	d)
+		brightnessctl set 5%-
 		send_notification "$1"
 		;;
 	

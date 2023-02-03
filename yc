@@ -1,9 +1,0 @@
-#!/bin/sh
-
-
-FZF_DEFAULT_OPTS="--layout=default --height 100%"
-
-
-li=$(ytfzf -t -I L "$*")
-echo "$li"
-printf "%s" "$li" | xclip -selection clipboard
