@@ -1,0 +1,10 @@
+#!/bin/sh
+
+
+while true
+do 
+    echo
+    inotifywait $PWD/$1 && gcc $PWD/$1 $2 && ./a.out
+    echo
+done
+
