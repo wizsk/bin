@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# s = sehri
+# i = iftar
+# time
+
+
 path="$HOME/.cache/stime"
 mkdir -p "$path"
 
