@@ -1,0 +1,8 @@
+#!/bin/sh
+
+alart() {
+    notify-send "Done GET UP!!" "$* Timmer Finished"
+    mpv --loop=2 ~/.local/assets/bell.m4a
+}
+
+countdown $* && alart $*
