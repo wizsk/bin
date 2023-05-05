@@ -5,4 +5,10 @@ alart() {
     mpv --loop=2 ~/.local/assets/bell.m4a
 }
 
+if [ "$1" = "u" ]
+then
+    countdown -up $(date -d @$(($(date '+%s') + 1200)) '+%H:%M')
+    exit
+fi
+
 countdown $* && alart $*
