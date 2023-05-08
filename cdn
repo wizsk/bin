@@ -1,7 +1,7 @@
 #!/bin/sh
 
 alart() {
-    notify-send "Done GET UP!!" "$* Timmer Finished"
+    notify-send -h string:bgcolor:\#63241a "󰀠 Done GET UP!!" "$* ended"
     mpv --loop=2 ~/.local/assets/bell.m4a
 }
 
@@ -11,4 +11,8 @@ then
     exit
 fi
 
-countdown $* && alart $*
+countdown $*  && alart "$* timmer"
+
+sec=2400
+countdown -up $(date -d @$(($(date '+%s') + sec)) '+%H:%M') && alart "$(($sec / 60))min EXT. TIME"
+
