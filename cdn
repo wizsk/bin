@@ -7,11 +7,12 @@ alart() {
 
 if [ "$1" = "u" ]
 then
-    countdown -up $(date -d @$(($(date '+%s') + 1200)) '+%H:%M')
+    countdown -up $(date -d @$(($(date '+%s') + 2400)) '+%H:%M')
     exit
 fi
 
-countdown $*  && alart "$* timmer"
+countdown $1  && alart "$* timmer"
+[ "$2" = "s" ] && exit 0
 
 sec=2400
 countdown -up $(date -d @$(($(date '+%s') + sec)) '+%H:%M') && alart "$(($sec / 60))min EXT. TIME"
