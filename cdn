@@ -2,7 +2,7 @@
 
 alart() {
     notify-send -h string:bgcolor:\#63241a "󰀠 Done GET UP!!" "$* ended"
-    mpv --loop=2 ~/.local/assets/bell.m4a
+    mpv --loop=5 ~/.local/assets/bell.m4a
 }
 
 if [ "$1" = "u" ]
