@@ -1,6 +1,6 @@
 #!/bin/sh
 
-file="$HOME/doc/quotes/quotes"
+file="$HOME/Documents/quotes/quotes"
 cache="$HOME/.cache/.last_quote"
 
 q=$(shuf "$file" | head -1)
