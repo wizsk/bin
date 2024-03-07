@@ -1,0 +1,17 @@
+#!/bin/sh
+
+
+msg="$@"
+
+[ "$msg" = "" ] && msg=$(date '+%D %R:%S')
+
+echo
+echo "commit msg:"
+echo $msg
+echo
+
+cd "$HOME/Documents/mini eassy/"
+
+git add .
+git commit -m "$msg"
+
