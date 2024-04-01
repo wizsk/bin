@@ -18,7 +18,7 @@ out="/tmp/a.out_$(date '+%s')"
 
 
 
-echo "useing \"$compiler\""
+echo "cmd:" "$compiler $1"
 echo
 "$compiler" -o "$out" "$1" && "$out"
 
