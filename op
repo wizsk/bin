@@ -1,12 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 # open pdf form web; donload only once
 
 set -e
 
+urldecode() {
+    local i="${*//+/ }"
+    echo -e "${i//%/\\x}"
+}
 
 dir="/tmp"
 # name=$(printf '%s' ${1} | grep -o '[^/]*$')
-name=$(printf '%s' ${1} | grep -o '[^/]*$' | python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()));")
+name=$(printf '%s' ${1} | grep -o '[^/]*$')
+name=$(echo -e "${name//%/\\x}")
 file="$dir/$name"
 
 [ "$1" = "" ] && echo "no link provided" && exit 1
