@@ -13,4 +13,4 @@ if [ "$res" = "" ];then
     exit 0
 fi
 
-printf "%s\n\n%s" "$(date)" "$res" | tee "$cache"
+printf "%s\n\n%s\n" "$(date)" "$res" | tee "$cache"
