@@ -1,17 +1,37 @@
 #! /bin/sh
 
+name="nint"
+site="google.com"
+
+if [ "$1" = "h" ] || [ "$1" = "help" ] ;then
+	echo
+	echo "DESCRIPTION:"
+	echo "$name aka no internet continuosly pings $site and if the net is ok it sends notificaton or just trying forever"
+	echo
+	echo "USAGES:"
+	echo "$name [command]"
+	echo "COMMANDS:"
+	echo "	s or silence"
+	echo "		don't sent any notification"
+	echo "	h or help"
+	echo "		show help text"
+	echo
+	exit 0
+fi
+
 x=true
-i=1
+i=0
 while $x
 do
-	printf "\nTried %dx: " "${i}"
 	i=$(($i+1))
-	[ "$(( $i % 30 ))" = 0 ] && notify-send -u low "No net" "Tried ${i}x to connect"
+	# [ "$(( $i % 30 ))" = 0 ] && notify-send -u low "No net" "Tried ${i}x to connect"
 	# curl -s 'https://hamariweb.com/islam/tangail_prayer-timing13785.aspx' > /dev/null && break || sleep 10
-	curl -s 'google.com' > /dev/null && break || sleep 10
+	ping -c 1 "$site" &> /dev/null && break || sleep 2
 
-	printf "No Luck\n"
+	printf "\nTried %dx: No Luck\n" "${i}"
 done
 
 echo 'Net aise'
-notify-send "Net aise" "hehe"
+
+[ "$2" = "s" ] && exit 0
+notify-send -u critical "Net aise" "hehe"
