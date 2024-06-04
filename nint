@@ -33,5 +33,5 @@ done
 
 echo 'Net aise'
 
-[ "$2" = "s" ] && exit 0
+[ "$1" = "s" ] && exit 0
 notify-send -u critical "Net aise" "hehe"
