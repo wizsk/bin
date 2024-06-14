@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+[ -z $1 ] && echo provide mail && exit 1
+
+ssh-keygen -t ed25519 -C "$1"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+echo
+echo "PUBLIC KEY --------"
+echo
+cat ~/.ssh/id_ed25519.pub
