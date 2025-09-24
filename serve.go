@@ -10,9 +10,7 @@ import (
 )
 
 
-func 
-ain() {
-	// fkkf
+func main() {
 	path := "."
 	port := "8080"
 
