@@ -1,4 +1,7 @@
+// build cmd:
+// go build -ldflags "-s -w" serve.go
 package main
+
 
 import (
 	"fmt"
@@ -6,7 +9,9 @@ import (
 	"os"
 )
 
-func main() {
+
+func 
+ain() {
 	// fkkf
 	path := "."
 	port := "8080"
@@ -16,6 +21,7 @@ func main() {
 	}
 
 	if len(os.Args) == 3 {
+		path = os.Args[1]
 		port = os.Args[2]
 	}
 
