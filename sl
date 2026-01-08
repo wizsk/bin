@@ -1,5 +1,6 @@
 #!/bin/env bash
 
+# change these to your place
 latitude="24.2510087"
 longitude="89.9169233"
 
@@ -10,17 +11,19 @@ day=$(date '+%d' | sed 's/^0//')
 month_name=$(date '+%B')
 
 res_file="$HOME/.cache/salah_time_$(date '+%B_%Y').json"
+
+# using hanafi
 api_url="https://api.aladhan.com/v1/calendar/$year/$month?method=1&school=1&latitude=$latitude&longitude=$longitude"
 
+# check if already have the data; then get it
 if [ ! -s "$res_file" ]; then
-    http_code=-1
-    temp_file=$(mktemp)
-
-    # Try curl first
     if ! command -v curl &> /dev/null; then
         echo "curl not found, please install curl!"
         exit 1
     fi
+
+    http_code=-1
+    temp_file=$(mktemp)
 
     echo "Attempting to fetch data using curl for the month of $month_name"
     echo "Wait... This happens once every Month. This may take some time..."
@@ -47,6 +50,7 @@ do
     case "$name" in
         Fajr | Sunrise | Dhuhr | Asr | Sunset | Maghrib | Isha)
 
+        # converiting to AM/PM format
         hour=$(echo $l | cut -d ':' -f 2 | sed 's/^[ 0]*//')
         min=$(echo $l | cut -d ':' -f 3)
 
