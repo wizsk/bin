@@ -1,4 +1,4 @@
-serve
-pnpm
-golangci-lint
+*
+!serve.go
+!sl
 

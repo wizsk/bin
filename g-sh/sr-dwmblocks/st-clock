@@ -1,4 +1,0 @@
-#! /bin/sh
-
- date "+%Y %b %d (%a) %I:%M%p"
-
