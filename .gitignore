@@ -1,4 +1,6 @@
 *
+!.gitignore
 !serve.go
 !sl
+!gen-ssh
 
