@@ -42,33 +42,30 @@ fi
 
 idx=$(($day - 1))
 data_file=$(mktemp)
-cat "$res_file" | jq ".data[$idx].timings" | sed '/[{}]/d; s/^ *//; s/[",]//g; s/ *(.*)//' > $data_file
+datas=$(cat "$res_file" | jq ".data[$idx].timings" |
+    grep 'Fajr\|Sunrise\|Dhuhr\|Asr\|Sunset\|Maghrib\|Isha' |
+    sed '/[{}]/d; s/^ *//; s/[",]//g; s/ *(.*)//') # > $data_file
+# skip these for now
+# Imsak
+# Midnight
+# Firstthird
+# Lastthird
 
 while read -r l
 do
-    name=$(echo $l | cut -d ':' -f 1)
-    case "$name" in
-        Fajr | Sunrise | Dhuhr | Asr | Sunset | Maghrib | Isha)
+    name=$(echo "$l" | cut -d ':' -f 1)
+    # converiting to AM/PM format
+    hour=$(echo "$l" | cut -d ':' -f 2) # no need as gt 12 | sed 's/^[ 0]*//')
+    min=$(echo "$l" | cut -d ':' -f 3)
 
-        # converiting to AM/PM format
-        hour=$(echo $l | cut -d ':' -f 2 | sed 's/^[ 0]*//')
-        min=$(echo $l | cut -d ':' -f 3)
+    if [ "$hour" -gt 12 ]; then
+        t="$(($hour - 12)):$min PM" # do not need to care about leading 0
+    else
+        t="$hour:$min AM"
+    fi
 
-        if [ "$hour" -gt 12 ]; then
-            t="$(($hour - 12)):$min PM" # do not need to care about leading 0
-        else
-            t="$hour:$min AM"
-        fi
+    echo "$name: $t"
 
-        echo "$name: $t"
-        ;;
-    esac
+done <<< "$datas"
 
-    # skip these for now
-    # Imsak
-    # Midnight
-    # Firstthird
-    # Lastthird
-done < "$data_file"
-
-rm "$data_file"
+# rm "$data_file"
