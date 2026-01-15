@@ -44,7 +44,7 @@ idx=$(($day - 1))
 data_file=$(mktemp)
 datas=$(cat "$res_file" | jq ".data[$idx].timings" |
     grep 'Fajr\|Sunrise\|Dhuhr\|Asr\|Sunset\|Maghrib\|Isha' |
-    sed '/[{}]/d; s/^ *//; s/[",]//g; s/ *(.*)//') # > $data_file
+    sed '/[{}]/d; s/[",]//g; s/ *(.*)//; s/ *//g') # > $data_file
 # skip these for now
 # Imsak
 # Midnight
