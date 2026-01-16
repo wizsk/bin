@@ -60,14 +60,36 @@ cat "$res_file" |
     jq ".data[$idx].timings" |
     grep 'Fajr\|Sunrise\|Dhuhr\|Asr\|Sunset\|Maghrib\|Isha' |
     awk -F'"' '
+BEGIN {
+  is_tty = system("[ -t 1 ]") == 0
+
+  if (is_tty) {
+    # True RGB colors: yellow → red → cyan → blue
+    colors[1]="\033[38;2;255;255;0m"   # yellow
+    colors[2]="\033[38;2;255;128;0m"
+    colors[3]="\033[38;2;240;107;96m"     # red
+    colors[4]="\033[38;2;0;255;255m"   # cyan
+    colors[5]="\033[38;2;0;128;255m"
+    colors[6]="\033[38;2;64;50;252m"   # blue
+    colors[7]="\033[38;2;105;110;245m"
+    reset="\033[0m"
+  } else {
+    for (i=1;i<=7;i++) colors[i]=""
+    reset=""
+  }
+}
+
 {
   split($4, t, "[ :()]") # split by any char in []
-  h = t[1]; m = t[2]
+  h=t[1]; m=t[2]
 
-  if (h == 0)       { hh = 12; ap = "AM" }
-  else if (h < 12)  { hh = h;  ap = "AM" }
-  else if (h == 12) { hh = 12; ap = "PM" }
-  else              { hh = h-12; ap = "PM" }
+  if (h==0)       { hh=12; ap="AM" }
+  else if (h<12)  { hh=h;  ap="AM" }
+  else if (h==12) { hh=12; ap="PM" }
+  else            { hh=h-12; ap="PM" }
 
-  printf "%s: %02d:%02d %s\n", $2, hh, m, ap
+  i++
+  printf "%s%-8s %02d:%02d %s%s\n",
+         colors[i], $2 ":", hh, m, ap, reset
 }'
+
