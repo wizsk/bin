@@ -1,5 +1,9 @@
 #!/bin/env bash
 
+# change these to your place
+latitude="24.2510087"
+longitude="89.9169233"
+
 missing=""
 
 for cmd in curl jq awk; do
@@ -13,10 +17,6 @@ if [ -n "$missing" ]; then
   echo "Please install them and try again." >&2
   exit 1
 fi
-
-# change these to your place
-latitude="24.2510087"
-longitude="89.9169233"
 
 
 year=$(date '+%Y')
