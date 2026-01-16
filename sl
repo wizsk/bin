@@ -58,7 +58,7 @@ idx=$(($day - 1))
 
 cat "$res_file" |
     jq ".data[$idx].timings" |
-    grep 'Fajr\|Sunrise\|Dhuhr\|Asr\|Sunset\|Maghrib\|Isha' |
+    grep 'Fajr\|Sunrise\|Dhuhr\|Asr\|Maghrib\|Isha' |
     awk -F'"' '
 BEGIN {
   is_tty = system("[ -t 1 ]") == 0
@@ -69,9 +69,9 @@ BEGIN {
     colors[2]="\033[38;2;252;223;106m"
     colors[3]="\033[38;2;252;131;131m"  # red
     colors[4]="\033[38;2;147;247;136m"  # cyan?
-    colors[5]="\033[38;2;247;136;183m"  # purple
-    colors[6]="\033[38;2;247;136;238m"
-    colors[7]="\033[38;2;142;136;247m"  # blue
+    # colors[5]="\033[38;2;247;136;183m"  # purple
+    colors[5]="\033[38;2;247;136;238m"
+    colors[6]="\033[38;2;142;136;247m"  # blue
     reset="\033[0m"
   } else {
     for (i=1;i<=7;i++) colors[i]=""
