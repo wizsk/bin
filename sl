@@ -1,5 +1,19 @@
 #!/bin/env bash
 
+missing=""
+
+for cmd in curl jq awk; do
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    missing="$missing $cmd"
+  fi
+done
+
+if [ -n "$missing" ]; then
+  echo "Error: Missing required command(s):$missing" >&2
+  echo "Please install them and try again." >&2
+  exit 1
+fi
+
 # change these to your place
 latitude="24.2510087"
 longitude="89.9169233"
@@ -41,31 +55,19 @@ if [ ! -s "$res_file" ]; then
 fi
 
 idx=$(($day - 1))
-data_file=$(mktemp)
-datas=$(cat "$res_file" | jq ".data[$idx].timings" |
+
+cat "$res_file" |
+    jq ".data[$idx].timings" |
     grep 'Fajr\|Sunrise\|Dhuhr\|Asr\|Sunset\|Maghrib\|Isha' |
-    sed '/[{}]/d; s/[",]//g; s/ *(.*)//; s/ *//g') # > $data_file
-# skip these for now
-# Imsak
-# Midnight
-# Firstthird
-# Lastthird
+    awk -F'"' '
+{
+  split($4, t, "[ :()]") # split by any char in []
+  h = t[1]; m = t[2]
 
-while read -r l
-do
-    name=$(echo "$l" | cut -d ':' -f 1)
-    # converiting to AM/PM format
-    hour=$(echo "$l" | cut -d ':' -f 2) # no need as gt 12 | sed 's/^[ 0]*//')
-    min=$(echo "$l" | cut -d ':' -f 3)
+  if (h == 0)       { hh = 12; ap = "AM" }
+  else if (h < 12)  { hh = h;  ap = "AM" }
+  else if (h == 12) { hh = 12; ap = "PM" }
+  else              { hh = h-12; ap = "PM" }
 
-    if [ "$hour" -gt 12 ]; then
-        t="$(($hour - 12)):$min PM" # do not need to care about leading 0
-    else
-        t="$hour:$min AM"
-    fi
-
-    echo "$name: $t"
-
-done <<< "$datas"
-
-# rm "$data_file"
+  printf "%s: %02d:%02d %s\n", $2, hh, m, ap
+}'
