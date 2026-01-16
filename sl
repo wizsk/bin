@@ -65,13 +65,13 @@ BEGIN {
 
   if (is_tty) {
     # True RGB colors: yellow → red → cyan → blue
-    colors[1]="\033[38;2;255;255;0m"   # yellow
-    colors[2]="\033[38;2;255;128;0m"
-    colors[3]="\033[38;2;240;107;96m"     # red
-    colors[4]="\033[38;2;0;255;255m"   # cyan
-    colors[5]="\033[38;2;0;128;255m"
-    colors[6]="\033[38;2;79;66;252m"   # blue
-    colors[7]="\033[38;2;105;110;245m"
+    colors[1]="\033[38;2;248;252;106m"  # yellow
+    colors[2]="\033[38;2;252;223;106m"
+    colors[3]="\033[38;2;252;121;106m"  # red
+    colors[4]="\033[38;2;106;216;252m"  # cyan
+    colors[5]="\033[38;2;106;135;252m"  # blue
+    colors[6]="\033[38;2;106;113;252m"
+    colors[7]="\033[38;2;145;106;252m"
     reset="\033[0m"
   } else {
     for (i=1;i<=7;i++) colors[i]=""
