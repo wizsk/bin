@@ -65,13 +65,13 @@ BEGIN {
 
   if (is_tty) {
     # True RGB colors: yellow → red → cyan → blue
-    colors[1]="\033[38;2;248;252;106m"  # yellow
-    colors[2]="\033[38;2;252;223;106m"
-    colors[3]="\033[38;2;252;131;131m"  # red
-    colors[4]="\033[38;2;147;247;136m"  # cyan?
-    # colors[5]="\033[38;2;247;136;183m"  # purple
-    colors[5]="\033[38;2;247;136;238m"
-    colors[6]="\033[38;2;142;136;247m"  # blue
+    # 48 -> bg; 38 -> fg
+    colors[1]="\033[48;2;248;252;106m\033[38;2;0;0;0m"  # yellow
+    colors[2]="\033[48;2;252;223;106m\033[38;2;0;0;0m"
+    colors[3]="\033[48;2;252;131;131m\033[38;2;0;0;0m"  # red
+    colors[4]="\033[48;2;147;247;136m\033[38;2;0;0;0m"  # cyan?
+    colors[5]="\033[48;2;247;136;238m\033[38;2;0;0;0m"
+    colors[6]="\033[48;2;142;136;247m\033[38;2;0;0;0m"  # blue
     reset="\033[0m"
   } else {
     for (i=1;i<=7;i++) colors[i]=""
@@ -89,7 +89,7 @@ BEGIN {
   else            { hh=h-12; ap="PM" }
 
   i++
-  printf "%s%-8s %02d:%02d %s%s\n",
+  printf "%s%-8s %02d:%02d %s%s\n\n",
          colors[i], $2 ":", hh, m, ap, reset
 }'
 
