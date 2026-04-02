@@ -89,7 +89,7 @@ BEGIN {
   else            { hh=h-12; ap="PM" }
 
   i++
-  printf "%s%-8s %02d:%02d %s%s\n\n",
+  printf "%s %-8s %02d:%02d %s %s\n",
          colors[i], $2 ":", hh, m, ap, reset
 }'
 
